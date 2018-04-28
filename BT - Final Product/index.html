@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+	<head>
+		<link rel="shortcut icon" type="image/ico" href="../logo.ico"/>
+		<title>PHP Server Test</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet"  type="text/css" href="../style/global.css">
+		<style type="text/css">
+			body {
+				height: 96%;
+				background-image: url('../img/cork-wallet.png');
+			}
+			iframe {
+				border-width: 0;
+				padding: 0;
+			}
+			.body-table {
+				width: 100%;
+				height: 100%;
+				border-collapse: collapse;
+			}
+			.body-table td {
+				border-width: 0;
+				padding: 0;
+			}
+			.top-frame {
+				width: 100%;
+				height: 100px;
+			}
+			.top-panel {
+				height: 50px;
+				/* background-color: red; */
+			}
+			.left-panel {
+				width: 200px;
+				/* background-color: green; */
+			}
+			.right-panel {
+				width: 150px;
+				/* background-color: blue; */
+				position: relative;
+				z-index: 50;
+			}
+			.middle-panel {
+				position: relative;
+				z-index: 100;
+				/* background-color: yellow; */
+			}
+			.top-frame {
+				height: 100%;
+				width: 100%;
+			}
+			.left-frame {
+				/* height: 100%; */
+				width: 100%;
+			}
+			.middle-frame {
+				width: 100%;
+				/* height: 100%; */
+				box-shadow: 0px 0px 3px 3px gray;
+				border-radius: 10px;
+				background-color: #efefef;
+				background-image: url('../img/noise.png');
+			}
+			.right-frame {
+				width: 100%;
+				/* height: 100%; */
+			}
+		</style>
+	</head>
+	<body>
+		<div style="height: 100%">
+			<table class="body-table">
+				<tr>
+					<td colspan="3" class="top-panel">
+						<iframe class="top-frame" name="top-panel" src="top-panel.html" height="100" scrolling="no"></iframe>
+					</td>
+				</tr>
+				<tr>
+					<td class="left-panel">
+						<iframe id="left-frame" class="left-frame" name="left-panel" height="500" src="left-panel.php"></iframe>
+					</td>
+					<td class="middle-panel">
+						<iframe id="middle-frame" class="middle-frame" name="middle-frame" height="500" src="main-page.html"></iframe>
+					</td>
+					<td class="right-panel">
+						<iframe id="right-frame" class="right-frame" name="right-frame" height="500" src="right-panel.html"></iframe>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
