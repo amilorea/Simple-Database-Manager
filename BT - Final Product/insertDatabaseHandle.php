@@ -33,6 +33,7 @@
 		
 		//Thành lập query
 		$query = 'INSERT INTO `'.$selectedTable.'` (';
+		$secondaryQuery = 'SELECT * FROM `'.$selectedTable.'` WHERE ';
 		$addComa = false;
 		foreach($requestData['content'] as $fieldData){
 			if(strcmp($fieldData['data'], '') != 0){
@@ -52,7 +53,7 @@
 			if(strcmp($fieldData['data'], '') != 0){
 				if($addComa == true){
 					$query = $query.', ';
-					$secondaryQuery = $query.' AND ';
+					$secondaryQuery = $secondaryQuery.' AND ';
 				}
 				
 				switch($fieldData['type']){
@@ -65,9 +66,11 @@
 				case MYSQLI_TYPE_LONGLONG:	# - Field is defined as BIGINT
 				case MYSQLI_TYPE_INT24:		# - Field is defined as MEDIUMINT
 					$query = $query.$fieldData['data'];
+					$secondaryQuery = $secondaryQuery.$fieldData['name'].' = '.$fieldData['data'];
 					break;
 				default:
 					$query = $query.'"'.$fieldData['data'].'"';
+					$secondaryQuery = $secondaryQuery.$fieldData['name'].' = "'.$fieldData['data'].'"';
 					break;
 				#MYSQLI_TYPE_NULL - Field is defined as DEFAULT NULL
 				#MYSQLI_TYPE_TIMESTAMP - Field is defined as TIMESTAMP
@@ -100,7 +103,10 @@
 		if(mysqli_query($connector, $query)){
 			$returnArr = [];
 			$contentArr = [];
-			$secondaryQuery = 'SELECT * FROM `'.$selectedTable.'` WHERE '.$requestData['key'].' = '.mysqli_insert_id($connector);
+			if(strcmp($requestData['key'], '') != 0){
+				$secondaryQuery = 'SELECT * FROM `'.$selectedTable.'` WHERE '.$requestData['key'].' = '.mysqli_insert_id($connector);
+			}
+			$returnArr['query'] = $secondaryQuery;
 			if($sresult = mysqli_query($connector, $secondaryQuery)){
 				$recheckRow = mysqli_fetch_array($sresult, MYSQLI_NUM);
 				$cnt = 0;

@@ -70,7 +70,6 @@
 				}
 				paramObject['content'] = contentObject;
 				var param = JSON.stringify(paramObject);
-				console.log(paramObject);
 				
 				//Bắt đầu request
 				var request = new XMLHttpRequest();
@@ -150,10 +149,6 @@
 					//Input #2 - Kiểu dữ liệu của trường
 					echo '<input class="column-type" type="hidden" value="'.$fieldInfo->type.'">';
 					
-					//Input #3 - Trường auto_increment
-					if(strpos($fieldComment[1], 'auto_increment') >= 0)
-						echo '<input id="uniqueColumn" type="hidden" value="'.$fieldInfo->name.'">';
-					
 					echo '</td>';
 					$columnCount += 1;
 				}
@@ -165,7 +160,7 @@
 				echo '<tr id="rowInsert">';
 				
 				for($cnt = 0; $cnt < $columnCount; $cnt++){
-					// Input #4 - Thêm trường
+					// Input #3 - Thêm trường
 					echo '<td class="insert-cell">';
 					
 					echo '<input class="insert-data" type=text" placeholder="Nhập dữ liệu">';

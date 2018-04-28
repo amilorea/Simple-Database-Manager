@@ -236,7 +236,7 @@
 				paramObject['extra'] = false;
 				paramObject['table'] = document.getElementById('tableName').value;
 				paramObject['referer'] = document.getElementById('refererPage').value;
-				paramObject['key'] = document.getElementById('uniqueColumn').value;
+				paramObject['key'] = document.getElementById('uniqueColumn') === null ? '' : document.getElementById('uniqueColumn').value;
 				
 				var contentObject = {};
 				var fieldRow = document.getElementById('rowMetadata');
@@ -285,6 +285,7 @@
 						var returnObject = JSON.parse(this.responseText);
 						switch(this.status){
 						case 200:
+						console.log(returnObject);
 							notification(returnObject['message'], 'success');
 							cloneRow.style['background-color'] = '';
 							var cnt = 0;
@@ -340,7 +341,6 @@
 				}
 				paramObject['content'] = contentObject;
 				var param = JSON.stringify(paramObject);
-				console.log(paramObject);
 				
 				//Bắt đầu request
 				var request = new XMLHttpRequest();
@@ -430,7 +430,7 @@
 					echo '<input class="column-type" type="hidden" value="'.$fieldInfo->type.'">';
 					
 					//Input #3 - Trường auto_increment
-					if(strpos($fieldComment[1], 'auto_increment') >= 0)
+					if(!(strpos($fieldComment[1], 'auto_increment') === FALSE))
 						echo '<input id="uniqueColumn" type="hidden" value="'.$fieldInfo->name.'">';
 					
 					echo '</td>';
